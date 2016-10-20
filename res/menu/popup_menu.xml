@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/mnOne"
+        android:title="Thêm lớp"
+        android:orderInCategory="10" />
+    <item
+        android:id="@+id/mnTwo"
+        android:title="Xóa"
+        android:orderInCategory="20" />
+    <item
+        android:id="@+id/mnThree"
+        android:title="Sửa"
+        android:orderInCategory="30" />
+	
+</menu>

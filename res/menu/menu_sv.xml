@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mnAddsv"
+        android:title="Thêm sinh viên"
+        android:orderInCategory="100" />
+    <item
+        android:id="@+id/mnDell"
+        android:title="Xóa tất cả"
+        android:orderInCategory="100" />
+</menu>

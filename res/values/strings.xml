@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Sinhntpk00491_assignment</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_ds_lop">Danh sách lớp</string>
+    <string name="title_activity_qly_svien">QlySVien</string>
+	<string-array name="Lop">
+	    <item >Lt001</item>
+	    <item >Lt002</item>
+	    <item >Lt003</item>
+	    <item >Lt004</item>
+	</string-array>
+</resources>
