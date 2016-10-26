@@ -33,7 +33,7 @@ public class ListAdapter extends ArrayAdapter<DsLop> {
 		if(p!=null){
 			TextView Malop = (TextView) view.findViewById(R.id.txtMalop);
 			TextView Tenlop = (TextView) view.findViewById(R.id.txtTenlop);
-			TextView tv1 = (TextView) view.findViewById(R.id.textView);
+			TextView tv1 = (TextView) view.findViewById(R.id.txtTitle);
 			TextView tv2 = (TextView) view.findViewById(R.id.textView2);
 			Typeface typeFace=Typeface.createFromAsset(getContext().getAssets(),"fonts/UTM KHUCCAMTA.TTF");
 			Malop.setTypeface(typeFace);

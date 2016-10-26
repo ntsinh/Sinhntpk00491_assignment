@@ -26,7 +26,7 @@ public class ListAdapterSV extends ArrayAdapter<SinhVien>{
 		view=inflater.inflate(R.layout.dong_sv, null);
 		SinhVien item= new SinhVien();
 		item=ar.get(position);
-		TextView tv1 = (TextView) view.findViewById(R.id.textView);
+		TextView tv1 = (TextView) view.findViewById(R.id.txtTitle);
 		TextView tv2 = (TextView) view.findViewById(R.id.textView2);
 		TextView tv3 = (TextView) view.findViewById(R.id.textView3);
 		TextView tv4 = (TextView) view.findViewById(R.id.textView4);

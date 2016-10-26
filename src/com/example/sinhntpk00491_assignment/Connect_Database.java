@@ -89,6 +89,27 @@ public class Connect_Database extends SQLiteOpenHelper{
 		
 		return dssv;
 	}
+	public ArrayList<SinhVien> GetAllSinhVien1(String MaSV){
+		ArrayList<SinhVien> dssv = new ArrayList<SinhVien>();
+		String selectQuery = "SELECT * FROM "+ Table_SV+ " where "+SV_Malop+"='"+MaSV+"'";
+		SQLiteDatabase db= this.getReadableDatabase();
+		Cursor cursor = db.rawQuery(selectQuery, null);
+		if(cursor.moveToFirst()){
+			do{
+				SinhVien sinhVien = new SinhVien();
+				sinhVien.setID(cursor.getInt(0));
+				sinhVien.setMaSV(cursor.getString(cursor.getColumnIndex(SV_MaSV)));
+				sinhVien.setTenSV(cursor.getString(cursor.getColumnIndex(SV_TenSV)));
+				sinhVien.setGioitinh(cursor.getString(cursor.getColumnIndex(SV_GioiTinh)));
+				sinhVien.setNgaysinh(cursor.getString(cursor.getColumnIndex(SV_NgaySinh)));
+				sinhVien.setNganhhoc(cursor.getString(cursor.getColumnIndex(SV_NganhHoc)));
+				sinhVien.setMalop(cursor.getString(cursor.getColumnIndex(SV_Malop)));
+				dssv.add(sinhVien);
+			}while(cursor.moveToNext());
+		}
+		
+		return dssv;
+	}
 	public SinhVien GetSinhVien(int id){
 		SinhVien sinhVien = new SinhVien();
 		String selectQuery = "SELECT * FROM "+ Table_SV+" where "+Class_ID+"="+id;
@@ -144,6 +165,34 @@ public class Connect_Database extends SQLiteOpenHelper{
 			SQLiteDatabase db= this.getWritableDatabase();
 			db.delete(Table_SV, null, null);
 	}
+	public ArrayList<SinhVien> getAllSinhVienTheoLop(int malop) {
+        ArrayList<SinhVien> ClassSinhVien = new ArrayList<SinhVien>();
+
+        String selectQuery = "SELECT  * FROM " + Table_SV+ "  where "+SV_Malop+" ="+ String.valueOf(malop);
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+            	SinhVien sinhVienPoly = new SinhVien();
+                sinhVienPoly.setMaSV(cursor.getString(cursor.getColumnIndex(SV_MaSV)));
+                sinhVienPoly.setTenSV(cursor.getString(cursor.getColumnIndex(SV_TenSV)));
+                sinhVienPoly.setGioitinh( cursor.getString(cursor.getColumnIndex(SV_GioiTinh)));
+                sinhVienPoly.setNgaysinh(cursor.getString(cursor.getColumnIndex(SV_NgaySinh)));
+                sinhVienPoly.setNganhhoc(cursor.getString(cursor.getColumnIndex(SV_NganhHoc)));
+                sinhVienPoly.setID(cursor.getInt(cursor.getColumnIndex(SV_Malop)));
+                ClassSinhVien.add(sinhVienPoly);
+            } while (cursor.moveToNext());
+        }
+        return ClassSinhVien;
+    }
+	public int getSinhVienCount(int malop) {
+        String countQuery = "SELECT * FROM "+Table_SV+" WHERE "+SV_Malop+"='"+malop+"'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int dem=cursor.getCount();
+        cursor.close();
+        return dem;
+    }
 	//End Sinh Vien
 	
 	//Lớp
@@ -215,6 +264,7 @@ public class Connect_Database extends SQLiteOpenHelper{
 			SQLiteDatabase db= this.getWritableDatabase();
 			db.delete(Table_Class, null, null);
 	}
+	
 	
 	//End Lớp
 	//User

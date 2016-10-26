@@ -12,4 +12,17 @@
 	    <item >Lt003</item>
 	    <item >Lt004</item>
 	</string-array>
+	<string-array name="titles">
+	    
+        <item>Danh sách lớp</item>
+        <item>Danh sách sinh viên</item>
+        <item>Về chúng tôi</item>
+    </string-array>
+
+    <array name="icons">
+        
+        <item>@drawable/lop</item>
+        <item>@drawable/sv</item>
+        <item>@drawable/about</item>
+    </array>
 </resources>

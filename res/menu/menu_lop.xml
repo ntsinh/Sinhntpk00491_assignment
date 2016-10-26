@@ -8,5 +8,9 @@
         android:id="@+id/mnDell"
         android:title="Xóa tất cả"
         android:orderInCategory="100" />
+    <item
+        android:id="@+id/mnView"
+        android:title="Xem tất cả SV"
+        android:orderInCategory="100" />
 
 </menu>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="550dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/boder"
     android:orientation="vertical"
-    android:padding="10dp" >
+    android:padding="20dp" >
 
     <TextView
         android:id="@+id/textView1"
@@ -12,12 +12,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Sửa thông tin sinh viên"
+        android:textColor="#F37125"
         android:textSize="40dp" />
 
     <View
         android:id="@+id/view1"
         android:layout_width="wrap_content"
         android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
         android:background="#E9EBEE" />
 
     <LinearLayout
@@ -31,16 +34,19 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/txtTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mã SV" />
+                android:paddingRight="10dp"
+                android:text="Mã SV"
+                android:textColor="#000" />
 
             <EditText
                 android:id="@+id/txtMaSV"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" >
+                android:layout_weight="1"
+                android:textColor="#000" >
 
                 <requestFocus />
             </EditText>
@@ -54,7 +60,9 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tên SV" />
+                android:paddingRight="10dp"
+                android:text="Tên SV"
+                android:textColor="#000" />
 
             <EditText
                 android:id="@+id/txtTenSV"
@@ -71,7 +79,10 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Giới tính" />
+                android:layout_gravity="center_vertical"
+                android:paddingRight="10dp"
+                android:text="Giới tính"
+                android:textColor="#000" />
 
             <RadioGroup
 		    android:id="@+id/rdoGioitinh"
@@ -83,15 +94,17 @@
 		        android:id="@+id/male"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-				android:checked="true"
-		        android:text="Nam" />
+		        android:checked="true"
+		        android:text="Nam"
+		        android:textColor="#000" />
 		
 		    <RadioButton
 		        android:id="@+id/fermale"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		
-		        android:text="Nữ" />
+		        android:text="Nữ"
+		        android:textColor="#000" />
+
 		 </RadioGroup>
         </LinearLayout>
 
@@ -103,7 +116,9 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ngày sinh" />
+                android:paddingRight="10dp"
+                android:text="Ngày sinh"
+                android:textColor="#000" />
 
             <EditText
                 android:id="@+id/txtNgaysinh"
@@ -120,7 +135,9 @@
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ngành" />
+                android:paddingRight="10dp"
+                android:text="Ngành"
+                android:textColor="#000" />
 
             <EditText
                 android:id="@+id/txtNganh"
@@ -137,7 +154,10 @@
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mã lớp" />
+                android:layout_gravity="center_vertical"
+                android:paddingRight="10dp"
+                android:text="Mã lớp"
+                android:textColor="#000" />
 
             <Spinner
                 android:id="@+id/txtMaLop"
@@ -157,7 +177,10 @@
                 android:id="@+id/btnThemsv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
                 android:layout_weight="5"
+                android:background="@drawable/button_style"
+                android:padding="15dp"
                 android:text="Sửa" />
 
             <Button
@@ -165,6 +188,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
+                android:background="@drawable/button_style"
+                android:padding="15dp"
                 android:text="Đóng" />
 
         </LinearLayout>

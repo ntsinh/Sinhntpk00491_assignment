@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg2"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingBottom="30dp"
+        android:text="Về chúng tôi"
+        android:textColor="#3B5998"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quản lý sinh viên là ứng dụng có chức năng quản lý lớp,sinh viên bao gồm các thao tác cơ bản như: Thêm,xóa,sửa lớp,sinh viên thông qua cơ sở dữ liệu SQLite,Ứng dụng được viết để hỗ trợ cho việc học tập và là đề tài của assignment của 2 môn android nâng cao và thiết kế giao diện android "
+            android:textColor="#fff"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="Người viết ứng dụng: Sv Nguyễn Trường Sinh"
+            android:textColor="#FFF701"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="Giảng viên hướng dẫn: Thầy Hoàng Quốc Tuấn"
+            android:textColor="#FFF701"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="Thời gian thức hiện: Khoảng 10 ngày"
+            android:textColor="#FFF701"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

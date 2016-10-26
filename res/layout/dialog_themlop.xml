@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="550dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/boder"
     android:orientation="vertical"
@@ -12,10 +12,17 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:paddingBottom="30dp"
-        android:text="Thêm lớp"
+        android:text="Thêm lớp "
         android:textColor="#F37125"
         android:textSize="25dp"
         android:textStyle="bold" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        android:background="#999" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,17 +32,20 @@
         android:paddingLeft="10dp" >
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/txtTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mã lớp" />
+            android:layout_gravity="center_vertical"
+            android:paddingRight="10dp"
+            android:text="Mã lớp"
+            android:textColor="#000" />
 
-        <EditText
+        <Spinner
             android:id="@+id/maLop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColorHint="#f00" />
+            android:entries="@array/Lop" />
 
     </LinearLayout>
 
@@ -50,28 +60,32 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tên lớp" />
+            android:paddingRight="10dp"
+            android:text="Tên lớp"
+            android:textColor="#000" />
 
         <EditText
             android:id="@+id/tenLop"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textColor="#999"
             android:textColorHint="#f00" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="10" >
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
 
         <Button
             android:id="@+id/btnAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
+            android:layout_marginRight="10dp"
+            android:layout_weight="0.5"
             android:background="@drawable/button_style"
+            android:padding="15dp"
             android:text="Thêm" />
 
         <Button
@@ -79,8 +93,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_weight="5"
+            android:layout_weight="0.5"
             android:background="@drawable/button_style"
+            android:padding="15dp"
             android:text="Đóng" />
 
     </LinearLayout>

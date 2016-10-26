@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -29,7 +30,10 @@ public class SinhVien extends Activity {
 		lv=(ListView)findViewById(R.id.LvSV);
 		database = new Connect_Database(this);  
         btnBack=(Button) findViewById(R.id.btnBack);
-        TextView Title=(TextView) findViewById(R.id.textView);
+        TextView Title=(TextView) findViewById(R.id.txtTitle);
+        Intent intent = getIntent();
+        String MaSV=intent.getStringExtra("MaLop");
+        Title.setText("Danh sách SV lớp "+ MaSV.toString()+" ");
         Typeface typeFace=Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/UTM FLAVOUR.TTF");
         Title.setTypeface(typeFace);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -45,7 +49,7 @@ public class SinhVien extends Activity {
 //			database.AddSinhVien(new SinhVien("pk002 ","Hoàng","Nam ","13-4-1994 ","Đồ họa ","pt001"));
 //			database.AddSinhVien(new SinhVien("pk003 ","Ngọc ","Nữ ","21-6-1995 ","Đồ họa ","pt001"));
 //			database.AddSinhVien(new SinhVien("pk004 ","Quỳnh ","Nữ ","26-11-1995 ","Đồ họa ","pt001"));
-			ar=database.GetAllSinhVien();
+			ar=database.GetAllSinhVien1(MaSV);
 	        adapter = new ListAdapterSV(getApplicationContext(), R.layout.dong_sv, ar);
 	        lv.setAdapter(adapter);
         
@@ -61,9 +65,6 @@ public class SinhVien extends Activity {
                     public boolean onMenuItemClick(MenuItem menuItem) {
 //                        Toast.makeText(MainActivity.this,"You Clicked : " + menuItem.getTitle(),Toast.LENGTH_SHORT).show();
                     	switch(menuItem.getItemId()){
-                    	case R.id.mnOne:
-                    		DialogThem();
-                    		break;
                     	case R.id.mnTwo:
                     		XoaSV(ar.get(position).getID());
             				break;
@@ -86,8 +87,8 @@ public class SinhVien extends Activity {
 	
 	
 	private void DialogSua(final int id) {
-		dialogEdit= new Dialog(this);
-		dialogEdit.requestWindowFeature(dialogEdit.getWindow().FEATURE_NO_TITLE);
+		dialogEdit= new Dialog(this,R.style.FullHeightDialog);
+//		dialogEdit.requestWindowFeature(dialogEdit.getWindow().FEATURE_NO_TITLE);
 		dialogEdit.setContentView(R.layout.dialog_suasv);
 		Button btnEdit, btnDong;
 		
@@ -104,7 +105,7 @@ public class SinhVien extends Activity {
 		nganh=(EditText) dialogEdit.findViewById(R.id.txtNganh);
 		maLop=(Spinner) dialogEdit.findViewById(R.id.txtMaLop);
 		
-		TextView tv = (TextView) dialogEdit.findViewById(R.id.textView);
+		TextView tv = (TextView) dialogEdit.findViewById(R.id.txtTitle);
 		TextView tv1 = (TextView) dialogEdit.findViewById(R.id.textView1);
 		TextView tv2 = (TextView) dialogEdit.findViewById(R.id.textView2);
 		TextView tv3 = (TextView) dialogEdit.findViewById(R.id.textView3);
@@ -145,6 +146,8 @@ public class SinhVien extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				Intent intent = getIntent();
+		        final String MaSV=intent.getStringExtra("MaLop");
 				String masv = maSV.getText().toString();
 				String tensv = tenSV.getText().toString();
 //				String Nam = nam.getText().toString();
@@ -165,7 +168,7 @@ public class SinhVien extends Activity {
 //				}else if(malop.equals("")){
 //					maLop.setHint("Chưa nhập mã lớp");
 				}else {
-				SinhVien sv=new SinhVien();
+				final SinhVien sv=new SinhVien();
 				sv.setID(id);
 				sv.setMaSV(maSV.getText().toString());
 				sv.setTenSV(tenSV.getText().toString());
@@ -178,11 +181,40 @@ public class SinhVien extends Activity {
 				sv.setNgaysinh(ngaySinh.getText().toString());
 				sv.setNganhhoc(nganh.getText().toString());
 				sv.setMalop(maLop.getSelectedItem().toString());
-				Connect_Database db=new Connect_Database(SinhVien.this);
-				db.UpdateSV(sv);
-				ar=database.GetAllSinhVien();
-		        adapter = new ListAdapterSV(getApplicationContext(), R.layout.dong_sv, ar);
-		        lv.setAdapter(adapter);
+				final Connect_Database db=new Connect_Database(SinhVien.this);
+				if(!sv.getMalop().equals(MaSV)){
+					AlertDialog.Builder builder1 = new AlertDialog.Builder(SinhVien.this);
+					builder1.setTitle("Chú ý");
+					builder1.setMessage("Việc đổi mã lớp sẽ đưa SV qua một lớp khác");
+					builder1.setCancelable(true);
+
+					builder1.setNegativeButton(
+					    "Tiếp tục",
+					    new DialogInterface.OnClickListener() {
+					        public void onClick(DialogInterface dialog, int id) {
+					        	db.UpdateSV(sv);
+								ar=database.GetAllSinhVien1(MaSV);
+						        adapter = new ListAdapterSV(getApplicationContext(), R.layout.dong_sv, ar);
+						        lv.setAdapter(adapter);
+					        }
+					    });
+
+					builder1.setPositiveButton(
+					    "Thôi",
+					    new DialogInterface.OnClickListener() {
+					        public void onClick(DialogInterface dialog, int id) {
+					            dialog.cancel();
+					        }
+					    });
+
+					AlertDialog alert11 = builder1.create();
+					alert11.show();
+				}else{
+					db.UpdateSV(sv);
+					ar=database.GetAllSinhVien1(MaSV);
+			        adapter = new ListAdapterSV(getApplicationContext(), R.layout.dong_sv, ar);
+			        lv.setAdapter(adapter);
+				}
 				dialogEdit.dismiss();
 				}
 			}
@@ -197,13 +229,14 @@ public class SinhVien extends Activity {
 		});
 	}
 	private void DialogThem() {
-		dialogAdd= new Dialog(this);
-		dialogAdd.requestWindowFeature(dialogAdd.getWindow().FEATURE_NO_TITLE);
+		dialogAdd= new Dialog(this,R.style.FullHeightDialog);
+//		dialogAdd.requestWindowFeature(dialogAdd.getWindow().FEATURE_NO_TITLE);
 		dialogAdd.setContentView(R.layout.dialog_themsv);
 		Button btnThem, btnClose;
 		 final EditText maSV,tenSV,ngaySinh,nganhHoc;
 		 final RadioButton nam,nu;
 		 final Spinner maLop;
+		 
 		btnThem = (Button) dialogAdd.findViewById(R.id.btnThemsv);
 		btnClose = (Button) dialogAdd.findViewById(R.id.btnClose1);
 		maSV = (EditText) dialogAdd.findViewById(R.id.txtMaSV);
@@ -218,6 +251,8 @@ public class SinhVien extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				Intent intent = getIntent();
+		        final String MaSV=intent.getStringExtra("MaLop");
 				String masv = maSV.getText().toString();
 				String tensv = tenSV.getText().toString();
 //				String Nam = nam.getText().toString();
@@ -239,7 +274,7 @@ public class SinhVien extends Activity {
 //					maLop.setHint("Chưa nhập mã lớp");
 				}else {
 				
-					SinhVien sv=new SinhVien();
+					final SinhVien sv=new SinhVien();
 					sv.setMaSV(maSV.getText().toString());
 					sv.setTenSV(tenSV.getText().toString());
 					sv.setGioitinh(nam.getText().toString());
@@ -251,12 +286,43 @@ public class SinhVien extends Activity {
 					sv.setNgaysinh(ngaySinh.getText().toString());
 					sv.setNganhhoc(nganhHoc.getText().toString());
 					sv.setMalop(maLop.getSelectedItem().toString());
-					Connect_Database db=new Connect_Database(SinhVien.this);
-					db.InsertSV(sv);
-					ar=database.GetAllSinhVien();
-			        adapter = new ListAdapterSV(getApplicationContext(), R.layout.dong_sv, ar);
-			        lv.setAdapter(adapter);
-					dialogAdd.dismiss();
+					final Connect_Database db=new Connect_Database(SinhVien.this);
+					if(!sv.getMalop().equals(MaSV)){
+						AlertDialog.Builder builder1 = new AlertDialog.Builder(SinhVien.this);
+						builder1.setTitle("Chú ý");
+						builder1.setMessage("Việc đổi mã lớp sẽ đưa SV qua một lớp khác,vẫn tiếp tục ?");
+						builder1.setCancelable(true);
+
+						builder1.setNegativeButton(
+						    "Tiếp tục",
+						    new DialogInterface.OnClickListener() {
+						        public void onClick(DialogInterface dialog, int id) {
+						        	db.InsertSV(sv);
+									ar=database.GetAllSinhVien1(MaSV);
+							        adapter = new ListAdapterSV(getApplicationContext(), R.layout.dong_sv, ar);
+							        lv.setAdapter(adapter);
+							        dialogAdd.dismiss();
+						        }
+						    });
+
+						builder1.setPositiveButton(
+						    "Quay lại",
+						    new DialogInterface.OnClickListener() {
+						        public void onClick(DialogInterface dialog, int id) {
+						            dialog.cancel();
+						        }
+						    });
+
+						AlertDialog alert11 = builder1.create();
+						alert11.show();
+					}else{
+						db.InsertSV(sv);
+						ar=database.GetAllSinhVien1(MaSV);
+				        adapter = new ListAdapterSV(getApplicationContext(), R.layout.dong_sv, ar);
+				        lv.setAdapter(adapter);
+						dialogAdd.dismiss();
+					}
+					
 				}
 //				
 			}
@@ -271,11 +337,13 @@ public class SinhVien extends Activity {
 		});
 	}
 	private void XoaSV(final int id) {
+		Intent intent = getIntent();
+        String MaSV=intent.getStringExtra("MaLop");
 		SinhVien sinhVien=new SinhVien();
 		sinhVien.ID=id;
 		Connect_Database db=new Connect_Database(SinhVien.this);
 		db.XoaSV(sinhVien);
-		ar=database.GetAllSinhVien();
+		ar=database.GetAllSinhVien1(MaSV);
         adapter = new ListAdapterSV(getApplicationContext(), R.layout.dong_sv, ar);
         lv.setAdapter(adapter);
 	}
@@ -288,9 +356,11 @@ public class SinhVien extends Activity {
 		builder.setNegativeButton("Xóa", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which ) { 
+				Intent intent = getIntent();
+		        String MaSV=intent.getStringExtra("MaLop");
 				SinhVien sinhVien=new SinhVien();
 				database.XoaAllSV(sinhVien);
-				ar=database.GetAllSinhVien();
+				ar=database.GetAllSinhVien1(MaSV);
 		        adapter = new ListAdapterSV(getApplicationContext(), R.layout.dong_sv, ar);
 		        lv.setAdapter(adapter);
 		        dialog.dismiss();
